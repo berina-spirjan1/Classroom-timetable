@@ -63,4 +63,39 @@ router.get("/dostupne-ucionice", function (req, res, next) {
   );
 });
 
+//ruta za provjeru dostupnosti odredjene ucionice
+router.post("/provjeri-zauzetost-ucionice", (req, res) => {
+  dbConnection.connect();
+  const { sifra_ucionice, datum, vrijeme_od, vrijeme_do } = req.body;
+
+  dbConnection.query(
+    `CALL procedure_dostupnost_ucionice(?,?,?,?,@dostupna)`,
+    [sifra_ucionice, datum, vrijeme_od, vrijeme_do],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res
+          .status(500)
+          .json({ error: "Greška prilikom izvršavanja procedure." });
+        return;
+      }
+
+      dbConnection.query(`SELECT @dostupna AS dostupna;`, function (err, data) {
+        if (err) {
+          console.error(error);
+          res
+            .status(500)
+            .json({ error: "Greška prilikom izvršavanja procedure." });
+          return;
+        }
+        res.status(200).json({
+          dostupna: data?.dostupna
+            ? "Ucionica je dostupna za koristenje u navedenom terminu!"
+            : "Ucionica je zauzeta u navedenom terminu!",
+        });
+      });
+    }
+  );
+});
+
 module.exports = router;
