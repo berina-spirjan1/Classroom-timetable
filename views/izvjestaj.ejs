@@ -12,7 +12,7 @@
           <th>Ime i prezime profesora</th>
           <th>Titula</th>
         </tr>
-        <% data.forEach(async (profesor, index) => { %>
+        <% data.forEach((profesor, index) => { %>
           <tr>
             <td><%= index + 1 %></td>
             <td><%= profesor.ime_profesora %> <%= profesor.prezime_profesora %></td>

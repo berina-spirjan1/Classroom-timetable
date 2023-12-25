@@ -15,18 +15,19 @@
           <th>Ukupno trajanje</th>
           <th>Predvidjeno trajanje</th>
         </tr>
-        <% data.forEach(async (predmet, index) => { %>
+      </thead>
+      <tbody id="tableBody">
+        <% data.forEach((predmet, index) => { %>
           <tr>
-            <td><%= predmet.id_predmet + 1 %></td>
+            <td><%= predmet?.id_predmet %></td>
             <td><%= predmet.naziv_predmeta %></td>
             <td><%= predmet.id_tip_predavanja %></td>
             <td><%= predmet.naziv_tipa_predavanja %></td>
             <td><%= predmet.ukupno_trajanje %></td>
             <td><%= predmet.predvideno_trajanje %></td>
           </tr>
-        <% }); %>        
-      </thead>
-      <tbody id="tableBody"></tbody>
+        <% }); %>
+      </tbody>
     </table>
   </body>
 </html>

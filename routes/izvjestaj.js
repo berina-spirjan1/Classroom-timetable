@@ -38,17 +38,16 @@ router.get("/ucionice", function (req, res, next) {
   );
 });
 
-router.get("/neispravno-evidentirano-vrijeme", (req, res) => {
+router.get("/neispravno-evidentirano-vrijeme", function (req, res, next) {
   dbConnection.connect();
   dbConnection.query(
-    "CALL proc_neispravno_evidentirano_vrijeme;",
-    (error, data) => {
+    `CALL proc_neispravno_evidentirano_vrijeme;`,
+    function (error, data) {
       if (error) {
-        console.error("Greška pri izvršavanju stored procedure:", error);
+        console.error("Greska pri izvrsavanju upita:", error);
         return res.status(500).json({ error: "Internal Server Error" });
       }
-
-      res.render("evidencija", { data });
+      res.render("evidencija", { data: data[0] ?? [] });
     }
   );
 });
