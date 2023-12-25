@@ -1,6 +1,5 @@
 const express = require("express");
 const { dbConnection } = require("../database/connection");
-const performance = require("performance-now");
 
 require("dotenv").config();
 

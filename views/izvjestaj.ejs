@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lista Fakulteta</title>
+  </head>
+  <body>
+    <h1>Lista profesora</h1>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Redni broj</th>
+          <th>Ime i prezime profesora</th>
+          <th>Titula</th>
+        </tr>
+        <% data.forEach(async (profesor, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= profesor.ime_profesora %> <%= profesor.prezime_profesora %></td>
+            <td><%= profesor.naziv_zvanja_profesora %></td>
+          </tr>
+        <% }); %>        
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </body>
+</html>
