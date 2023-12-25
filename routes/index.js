@@ -18,7 +18,7 @@ router.get("/profesori", function (req, res, next) {
      ON prof.id_zvanje_profesora=zv.id_zvanje_profesora;`,
     function (error, data) {
       if (error) {
-        console.error("Error executing query:", error);
+        console.error("Greska pri izvrsavanju upita:", error);
         return res.status(500).json({ error: "Internal Server Error" });
       }
       res.status(200).json({ status: 200, data });
@@ -36,7 +36,7 @@ router.get("/ucionice", function (req, res, next) {
      ON uc.id_fakultet = fkt.id_fakultet;`,
     function (error, data) {
       if (error) {
-        console.error("Error executing query:", error);
+        console.error("Greska pri izvrsavanju upita:", error);
         return res.status(500).json({ error: "Internal Server Error" });
       }
       res.status(200).json({ status: 200, data });
@@ -55,7 +55,7 @@ router.get("/dostupne-ucionice", function (req, res, next) {
      WHERE uc.renoviranje!=1;`,
     function (error, data) {
       if (error) {
-        console.error("Error executing query:", error);
+        console.error("Greska pri izvrsavanju upita:", error);
         return res.status(500).json({ error: "Internal Server Error" });
       }
       res.status(200).json({ status: 200, data });
