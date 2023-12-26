@@ -60,25 +60,16 @@ router.post("/srednje", (req, res) => {
     return res.status(400).send("Bad Request: Invalid data format");
   }
 
-  const query =
-    "INSERT INTO fakultet (naziv_fakulteta, telefon_fakulteta, email_fakulteta, korisnicko_ime, hesirana_sifra, adresa_fakulteta) VALUES ?";
-
-  const values = data.map((item) => [
-    item.naziv_fakulteta,
-    item.telefon_fakulteta,
-    item.email_fakulteta,
-    item.korisnicko_ime,
-    item.hesirana_sifra,
-    item.adresa_fakulteta,
-  ]);
+  const procedureCall = "CALL proc_insert_multiple_fakulteti(?)";
+  const values = [JSON.stringify(data)]; // Pretvori podatke u JSON format
 
   const start = Date.now();
-  dbConnection.query(query, [values], (error, results) => {
+  dbConnection.query(procedureCall, [values], (error, results) => {
     if (error) {
-      console.error("Greška prilikom višestrukog unosa:", error);
+      console.error("Greška prilikom poziva stored procedure:", error);
       res.status(500).send("Internal Server Error");
     } else {
-      res.status(200).send("Uspjesno izvrseno umetanje u tabelu fakultet!");
+      res.status(200).send("Uspješno izvršen poziv stored procedure!");
     }
   });
   const end = Date.now();
